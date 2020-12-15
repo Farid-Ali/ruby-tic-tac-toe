@@ -2,17 +2,17 @@ module TicTacToe
   class Borad
     attr_reader :grid
     def initialize(input = {})
-      @grid = input.fetch(:grid, default_gird)
+      @grid = input.fetch(:grid, default_grid)
     end
 
     def get_cell(x, y)
       grid[y][x]
     end
 
-    private
-
-    def default_grid
-      Array.new(3) {Array.new(3) { Cell.new } }
+    def formatted_grid
+      grid.each do |row|
+        puts row.map { |cell| cell.value.empty? ? "_" : cell.value }.join(" ")
+      end
     end
 
     def set_cell(x, y, value)
@@ -52,6 +52,12 @@ module TicTacToe
 
     def winning_position_values(winning_position)
       winning_position.map { |cell| cell.value }
+    end
+
+    private
+
+    def default_grid
+      Array.new(3) {Array.new(3) { Cell.new } }
     end
   end
 end
